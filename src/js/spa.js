@@ -362,5 +362,3 @@ window.onload = () => {
         _user.href = "/Web/auth/logout.php?location=" + a;
     }
 };
-
-getData("/Web/src/json/offline.json");
