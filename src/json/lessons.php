@@ -112,7 +112,7 @@ $result = array(
                             "element" => "h1",
                             "classes" => array("subtitle"),
                             "id" => "first",
-                            "value" => $nearestWorkingDays->getToday("En")
+                            "value" => $nearestWorkingDays->getToday("Ru")
                         )
                     )
                 ),
@@ -156,7 +156,7 @@ $result = array(
                             "element" => "h1",
                             "classes" => array("subtitle"),
                             "id" => "first",
-                            "value" => $nearestWorkingDays->getTomorrow("En")
+                            "value" => $nearestWorkingDays->getTomorrow("Ru")
                         )
                     )
                 ),
