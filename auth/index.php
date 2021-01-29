@@ -77,8 +77,7 @@ if(isset($_POST["login"])){
     // A proxy may be used, so get the auxiliary header
     $XForwardedFor = $_SERVER["HTTP_X_FORWARDED_FOR"];
 
-    // TODO: move from hard-coded mysqli username and password to environment variables
-    $connection = new mysqli("localhost", "u87086_drew", "FEm8%QsINtzn", "u87086_drew") or die("Unable to connect to database!");
+    $connection = new mysqli("localhost", getenv("SqlUser", true), getenv("SqlPassword", true), getenv("SqlDatabase", true)) or die("Unable to connect to database!");
     $connection->set_charset("utf8");
 
     $sql = "SELECT * FROM `People` WHERE `Login`='$login';";

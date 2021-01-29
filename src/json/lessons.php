@@ -93,8 +93,7 @@ require '../php/WorkingDay.php';
 
 $nearestWorkingDays = new WorkingDay();
 
-// TODO: move from hard-coded mysqli username and password to environment variables
-$connection = new mysqli("localhost", "u87086_drew", "FEm8%QsINtzn", "u87086_drew");
+$connection = new mysqli("localhost", getenv("SqlUser", true), getenv("SqlPassword", true), getenv("SqlDatabase", true));
 $connection -> set_charset("utf8");
 
 $result = array(
