@@ -126,8 +126,7 @@ if(isset($_POST["login"])){
             $connection->close();
 
             // Set cookie
-            // TODO: change cookie name to loggedIn
-            $cookie_name = "logedIn";
+            $cookie_name = "loggedIn";
             $cookie_value = $id;
             setcookie($cookie_name, $cookie_value, time() + 2400, "/");
             // Forward user to homepage

@@ -21,7 +21,6 @@
  *
  * Also, based on POST request values, the function updates, deletes or adds homework
  *
- * @todo change cookie name to loggedIn
  * @param mysqli $connection MySQLi connection to the DB that has data
  * @return array The table with homework
  */
@@ -33,7 +32,7 @@ function getData(mysqli $connection): array
 
         $name = $_POST["name"];
         $what = $_POST["what"];
-        $who = $_COOKIE["logedIn"];
+        $who = $_COOKIE["loggedIn"];
 
         switch ($_POST["update"]) {
             case "remove":
@@ -118,7 +117,6 @@ require '../php/WorkingDay.php';
 
 $nearestWorkingDays = new WorkingDay();
 
-// TODO: move from hard-coded mysqli username and password to environment variables
 $connection = new mysqli("localhost", getenv("SqlUser", true), getenv("SqlPassword", true), getenv("SqlDatabase", true));
 $connection -> set_charset("utf8");
 

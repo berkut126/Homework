@@ -13,8 +13,7 @@
  *
  */
 
-// TODO: change cookie name to loggedIn
-$cookie_name = "logedIn";
+$cookie_name = "loggedIn";
 // Reset cookie
 setcookie($cookie_name, 0, 0, "/");
 // See if user was working with the view other than lessons

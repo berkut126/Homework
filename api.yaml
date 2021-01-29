@@ -10,7 +10,7 @@ paths:
     get:
       description: Returns the SSR lesson view
       parameters:
-        - name: logedIn
+        - name: loggedIn
           in: cookie
           description: A cookie signifiying the user is logged in as an admin
           required: false
@@ -56,7 +56,7 @@ paths:
     get:
       description: Returns the SSR homework view
       parameters:
-        - name: logedIn
+        - name: loggedIn
           in: cookie
           description: A cookie signifiying the user is logged in as an admin
           required: false
@@ -121,7 +121,7 @@ paths:
     get:
       description: Log user out and redirect to a view (lessons by default)
       parameters:
-        - name: logedIn
+        - name: loggedIn
           in: cookie
           description: A cookie signifiying the user is logged in as an admin
           required: false

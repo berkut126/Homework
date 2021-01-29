@@ -19,7 +19,6 @@
  * packed into inputs, which placeholders hold the current value. An onchange attribute is also
  * set @see https://random-fqdn.ru/js/spa.js
  *
- * @todo change cookie name to loggedIn
  * @todo change the $hello param to $day
  *
  * @param mysqli $connection MySQLi connection to the DB that has data
@@ -42,7 +41,7 @@ function getData(mysqli $connection, string $hello): array{
             $temp = array("element" => "td");
 
             // Check if user is logged in as an admin
-            if(isset($_COOKIE["logedIn"])){
+            if(isset($_COOKIE["loggedIn"])){
 
                 if($key == "LessonName"){
 
