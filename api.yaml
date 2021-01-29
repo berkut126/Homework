@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: Расписание
+  description: Расписание
+  version: 0.0.1
+servers:
+  - url: 'https'
+paths:
+  /src/json/lessons.php:
+    get:
+      description: Returns the SSR lesson view
+      parameters:
+        - name: logedIn
+          in: cookie
+          description: A cookie signifiying the user is logged in as an admin
+          required: false
+          schema:
+            type: string
+      responses:
+        500:
+          description: PHP error
+        200:
+          description: SSR lesson view
+          content:
+            'application/json':
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/lessons'
+                  - $ref: '#/components/schemas/lessonsAdmin'
+  /src/json/homework.php:
+    post:
+      description: Performs CRUD and returns the SSR homework view
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              properties:
+                update:
+                  description: CRUD operation to be performed
+                  type: string
+                name:
+                  description: The subject whih homework is updated
+                  type: string
+                what:
+                  description: The new value
+                  type: string
+      responses:
+        500:
+          description: PHP error
+        200:
+          description: SSR homework view
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/homeworkAdmin'
+    get:
+      description: Returns the SSR homework view
+      parameters:
+        - name: logedIn
+          in: cookie
+          description: A cookie signifiying the user is logged in as an admin
+          required: false
+          schema:
+            type: string
+      responses:
+        500:
+          description: PHP error
+        200:
+          description: SSR homework view
+          content:
+            'application/json':
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/homework'
+                  - $ref: '#/components/schemas/homeworkAdmin'
+  /src/json/offline.json:
+    get:
+      description: Default view when the server is down and the user accesses content via PWA
+      responses:
+        200:
+          description: SSR offline view
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/offline'
+  /auth/:
+    post:
+      description: User login
+      requestBody:
+        content:
+          'application/x-www-form-urlencoded':
+            schema:
+              properties:
+                login:
+                  description: User-supplied login
+                  type: string
+                passsword:
+                  description: User-supplied password
+                  type: string
+      responses:
+        200:
+          description: User login failed
+          content:
+            'text/html':
+              schema:
+                description: User login form
+                type: string
+        302:
+          description: User logged in successfully
+    get:
+      description: User login form
+      responses:
+        200:
+          description: User login form
+          content:
+            'text/html':
+              schema:
+                description: User login form
+                type: string
+  /auth/logout:
+    get:
+      description: Log user out and redirect to a view (lessons by default)
+      parameters:
+        - name: logedIn
+          in: cookie
+          description: A cookie signifiying the user is logged in as an admin
+          required: false
+          schema:
+            type: string
+        - name: location
+          in: query
+          description: View to be displayed after logout
+          required: false
+          schema:
+            type: string
+      responses:
+        302:
+          description: User logged out successful
+components:
+  schemas:
+    ssrElement:
+      description: Server-side rendered view
+      type: object
+      properties:
+        element:
+          type: string
+          description: the HTML tag that holds the object
+        id:
+          type: string
+          description: the id of the rendered HTML element
+        classes:
+          type: array
+          description: the classes of renedered HTML element
+          items:
+            type: string
+        value:
+          type: string
+          description: the innerText of the rendered HTML element
+        attributes:
+          type: array
+          description: HTML attributes of the rendered HTML element
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: the name of the attribute
+              value:
+                type: string
+                description: the value of the attribute
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
+    lessons:
+      description: Server-side rendered lesson view
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
+    homework:
+      description: Server-side rendered view with homework
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
+    lessonsAdmin:
+      description: Server-side rendered lesson view for admin
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
+    homeworkAdmin:
+      description: Server-side rendered homework view for admin
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
+    offline:
+      description: Service-worker cached offline view
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ssrElement'
