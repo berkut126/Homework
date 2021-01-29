@@ -19,16 +19,14 @@
  * packed into inputs, which placeholders hold the current value. An onchange attribute is also
  * set @see https://random-fqdn.ru/js/spa.js
  *
- * @todo change the $hello param to $day
- *
  * @param mysqli $connection MySQLi connection to the DB that has data
- * @param string $hello The day ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday') for which the lessons should be fetched
+ * @param string $day The day ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday') for which the lessons should be fetched
  * @return array The table with lesson timetable
  */
-function getData(mysqli $connection, string $hello): array{
+function getData(mysqli $connection, string $day): array{
 
     // The sql string.
-    $sql = "SELECT `LessonName`, `LessonStart` FROM `Lessons` WHERE `Day`='$hello' ORDER BY `LessonNumber`";
+    $sql = "SELECT `LessonName`, `LessonStart` FROM `Lessons` WHERE `Day`='$day' ORDER BY `LessonNumber`";
     $result = $connection->query($sql);
 
     $tbody = array("element" => "tbody", "content" => array());
