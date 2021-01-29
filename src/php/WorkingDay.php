@@ -33,11 +33,11 @@ class WorkingDay{
      * WorkingDay constructor.
      *
      * This class constructs the working day's names based on the current time. The timezone is set to
-     * Moscow/Amsterdam.
-     * @todo Change the timezone to production server's (or move it to the constructor)
+     * Moscow/Amsterdam
+     * @param string $timezone - the timezone according to which the days of the week are acquired. Default: Europe/Amsterdam
      */
-    function __construct(){
-        date_default_timezone_set("Europe/Amsterdam");
+    function __construct(string $timezone = "Europe/Amsterdam"){
+        date_default_timezone_set($timezone);
         $day = date("l");
         if($day == "Friday"){
             $offset = array("+1 second", "+3 day");
