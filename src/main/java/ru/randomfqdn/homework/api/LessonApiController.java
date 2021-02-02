@@ -1,18 +1,21 @@
 package ru.randomfqdn.homework.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
-import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
 
+import javax.annotation.Generated;
+import java.util.Optional;
+
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
 @Controller
 @RequestMapping("${openapi..base-path:}")
 public class LessonApiController implements LessonApi {
 
     private final NativeWebRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public LessonApiController(NativeWebRequest request) {
         this.request = request;
     }

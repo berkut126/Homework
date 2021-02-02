@@ -1,23 +1,20 @@
 package ru.randomfqdn.homework.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ru.randomfqdn.homework.model.Lesson;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import org.springframework.hateoas.RepresentationModel;
+
+import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * Array of lessons
  */
 @ApiModel(description = "Array of lessons")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-
 public class Lessons extends RepresentationModel<Lessons>   {
+
   @JsonProperty("lessons")
   @Valid
   private java.util.List<Lesson> lessons = null;
@@ -43,9 +40,7 @@ public class Lessons extends RepresentationModel<Lessons>   {
    * @return lessons
   */
   @ApiModelProperty(value = "")
-
   @Valid
-
   public java.util.List<Lesson> getLessons() {
     return lessons;
   }
@@ -64,8 +59,6 @@ public class Lessons extends RepresentationModel<Lessons>   {
    * @return version
   */
   @ApiModelProperty(value = "")
-
-
   public Integer getVersion() {
     return version;
   }

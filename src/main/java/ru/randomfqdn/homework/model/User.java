@@ -1,22 +1,19 @@
 package ru.randomfqdn.homework.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import org.springframework.hateoas.RepresentationModel;
+
+import java.util.Objects;
 
 /**
  * User object
  */
 @ApiModel(description = "User object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-
 public class User extends RepresentationModel<User>   {
+
   @JsonProperty("id")
   private Integer id;
 
@@ -45,8 +42,6 @@ public class User extends RepresentationModel<User>   {
    * @return id
   */
   @ApiModelProperty(value = "")
-
-
   public Integer getId() {
     return id;
   }
@@ -65,8 +60,6 @@ public class User extends RepresentationModel<User>   {
    * @return login
   */
   @ApiModelProperty(value = "")
-
-
   public String getLogin() {
     return login;
   }
@@ -85,8 +78,6 @@ public class User extends RepresentationModel<User>   {
    * @return firstName
   */
   @ApiModelProperty(value = "")
-
-
   public String getFirstName() {
     return firstName;
   }
@@ -105,8 +96,6 @@ public class User extends RepresentationModel<User>   {
    * @return lastName
   */
   @ApiModelProperty(value = "")
-
-
   public String getLastName() {
     return lastName;
   }
@@ -125,8 +114,6 @@ public class User extends RepresentationModel<User>   {
    * @return password
   */
   @ApiModelProperty(value = "")
-
-
   public String getPassword() {
     return password;
   }
@@ -145,8 +132,6 @@ public class User extends RepresentationModel<User>   {
    * @return group
   */
   @ApiModelProperty(value = "")
-
-
   public String getGroup() {
     return group;
   }

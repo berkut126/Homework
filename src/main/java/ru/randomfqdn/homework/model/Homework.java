@@ -1,23 +1,21 @@
 package ru.randomfqdn.homework.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import org.springframework.hateoas.RepresentationModel;
+
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * The homework object
  */
 @ApiModel(description = "The homework object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-
 public class Homework extends RepresentationModel<Homework>   {
+
   @JsonProperty("id")
   private Integer id;
 
@@ -38,8 +36,6 @@ public class Homework extends RepresentationModel<Homework>   {
    * @return id
   */
   @ApiModelProperty(value = "")
-
-
   public Integer getId() {
     return id;
   }
@@ -58,8 +54,6 @@ public class Homework extends RepresentationModel<Homework>   {
    * @return task
   */
   @ApiModelProperty(value = "")
-
-
   public String getTask() {
     return task;
   }
@@ -78,9 +72,7 @@ public class Homework extends RepresentationModel<Homework>   {
    * @return due
   */
   @ApiModelProperty(value = "")
-
   @Valid
-
   public LocalDate getDue() {
     return due;
   }

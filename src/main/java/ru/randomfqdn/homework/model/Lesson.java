@@ -1,23 +1,20 @@
 package ru.randomfqdn.homework.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import ru.randomfqdn.homework.model.Homework;
-import org.openapitools.jackson.nullable.JsonNullable;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import org.springframework.hateoas.RepresentationModel;
+
+import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The lesson object
  */
 @ApiModel(description = "The lesson object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-
 public class Lesson extends RepresentationModel<Lesson>   {
+
   @JsonProperty("id")
   private Integer id;
 
@@ -46,8 +43,6 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return id
   */
   @ApiModelProperty(value = "")
-
-
   public Integer getId() {
     return id;
   }
@@ -94,8 +89,6 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return day
   */
   @ApiModelProperty(value = "")
-
-
   public java.util.List<String> getDay() {
     return day;
   }
@@ -122,8 +115,6 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return time
   */
   @ApiModelProperty(value = "")
-
-
   public java.util.List<String> getTime() {
     return time;
   }
@@ -187,7 +178,6 @@ public class Lesson extends RepresentationModel<Lesson>   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Lesson {\n");
-    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    day: ").append(toIndentedString(day)).append("\n");
