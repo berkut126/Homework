@@ -21,8 +21,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories
-@ComponentScan(basePackages = {"ru.randomfqdn.homework.repo"})
+@EnableJpaRepositories(basePackages = {"ru.randomfqdn.homework.repo"})
+@ComponentScan(basePackages = {"ru.randomfqdn.homework.service", "ru.randomfqdn.homework.model"})
 public class JpaConfiguration {
 
     public static final Logger logger = LoggerFactory.getLogger(JpaConfiguration.class);
@@ -72,7 +72,7 @@ public class JpaConfiguration {
 
         var factoryBean = new LocalContainerEntityManagerFactoryBean();
 
-        factoryBean.setPackagesToScan("ru.randomfqdn.homework.entities");
+        factoryBean.setPackagesToScan("ru.randomfqdn.homework.model");
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaProperties(hibernateProperties());
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
