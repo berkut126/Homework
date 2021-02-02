@@ -2,91 +2,328 @@ openapi: 3.0.0
 info:
   title: Расписание
   description: Расписание
-  version: 0.0.1
+  version: 0.0.2
 servers:
   - url: 'https'
+tags:
+  - name: "homework"
+    description: "Everything about homework"
+  - name: "user"
+    description: "Everything about users"
+  - name: "lesson"
+    description: "Everything about lessons"
 paths:
-  /src/json/lessons.php:
+  /lessons:
     get:
-      description: Returns the SSR lesson view
-      parameters:
-        - name: loggedIn
-          in: cookie
-          description: A cookie signifiying the user is logged in as an admin
-          required: false
-          schema:
-            type: string
+      summary: Lists all subjetcs
+      description: Lists all the subjects as an array of lesson objects without homework. Response is in JSON or XML, based on Accept header.
+      tags:
+        - "lesson"
       responses:
-        500:
-          description: PHP error
         200:
-          description: SSR lesson view
+          description: List of lessons
           content:
             'application/json':
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/lessons'
-                  - $ref: '#/components/schemas/lessonsAdmin'
-  /src/json/homework.php:
+                $ref: '#/components/schemas/lessons'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/lessons'
+        404:
+          description: No subjects for the current user.
+        405:
+          description: Method not allowed.
+  /lesson:
     post:
-      description: Performs CRUD and returns the SSR homework view
+      summary: Create new lesson
+      tags:
+        - "lesson"
       requestBody:
+        description: Lesson object to be added
         content:
-          'application/x-www-form-urlencoded':
+          'application/json':
             schema:
-              properties:
-                update:
-                  description: CRUD operation to be performed
-                  type: string
-                name:
-                  description: The subject whih homework is updated
-                  type: string
-                what:
-                  description: The new value
-                  type: string
+              $ref: '#/components/schemas/lesson'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/lesson'
       responses:
-        500:
-          description: PHP error
         200:
-          description: SSR homework view
+          description: Lesson added.
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/homeworkAdmin'
+                $ref: '#/components/schemas/lesson'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/lesson'
+        405:
+          description: Invalid input.
+  /lesson/{id}:
     get:
-      description: Returns the SSR homework view
+      summary: Get the lesson object with homework
+      tags:
+        - "lesson"
       parameters:
-        - name: loggedIn
-          in: cookie
-          description: A cookie signifiying the user is logged in as an admin
-          required: false
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: The lesson object with homework
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/lesson'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/lesson'
+        404:
+          description: Lesson with such id not found
+    put:
+      summary: Update a lesson
+      tags:
+        - "lesson"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Lesson object to be added
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/lesson'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/lesson'
+      responses:
+        200:
+          description: Lesson updated.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/lesson'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/lesson'
+        400:
+          description: Validation failed
+        404:
+          description: Lesson with such id not found
+        405:
+          description: Invalid input.
+    delete:
+      summary: Delete a lesson
+      tags:
+        - "lesson"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Lesson deleted.
+        404:
+          description: Lesson with such id not found
+        405:
+          description: Invalid input.
+  /homework:
+    post:
+      summary: Create new homework
+      tags:
+        - "homework"
+      requestBody:
+        description: Homework object to be added
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/homework'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/homework'
+      responses:
+        200:
+          description: Lesson added.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/homework'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/homework'
+        405:
+          description: Invalid input.
+  /homework/{id}:
+    get:
+      summary: Get the homework object
+      tags:
+        - "homework"
+      parameters:
+        - name: "id"
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: The homework object
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/homework'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/homework'
+        404:
+          description: Homework with such id not found
+    put:
+      summary: Update homework
+      tags:
+        - "homework"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Homework object to be updated
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/homework'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/homework'
+      responses:
+        200:
+          description: Homework updated.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/homework'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/homework'
+        400:
+          description: Validation failed
+        404:
+          description: Homework with such id not found
+        405:
+          description: Invalid input.
+    delete:
+      summary: Delete homework
+      tags:
+        - "homework"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Homework deleted.
+        404:
+          description: Homework with such id not found
+        405:
+          description: Invalid input.
+  /homework/{subject}:
+    get:
+      summary: List homework for subject
+      tags:
+        - "homework"
+      parameters:
+        - name: "subject"
+          in: path
+          required: true
           schema:
             type: string
       responses:
-        500:
-          description: PHP error
         200:
-          description: SSR homework view
+          description: Homework for the specofied subject
           content:
             'application/json':
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/homework'
-                  - $ref: '#/components/schemas/homeworkAdmin'
-  /src/json/offline.json:
-    get:
-      description: Default view when the server is down and the user accesses content via PWA
+                type: object
+                properties:
+                  homework:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/homework'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/homeworkForLesson'
+  /user:
+    post:
+      tags:
+        - "user"
+      summary: Create user
+      description: Can be only performed by user in "Admin" group
+      requestBody:
+        description: Homework object to be added
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/user'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/user'
       responses:
         200:
-          description: SSR offline view
+          description: User created successfully
           content:
             'application/json':
               schema:
-                $ref: '#/components/schemas/offline'
-  /auth/:
+                $ref: '#/components/schemas/user'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/user'
+        400:
+          description: Not permitted.
+        405:
+          description: Wrong data submitted.
+  /user/login:
+    get:
+      summary: Logs a user in.
+      tags:
+        - "user"
+      parameters:
+        - name: "login"
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: "password"
+          in: query
+          required: true
+          schema:
+            type: string
+            format: password
+      responses:
+        200:
+          description: User logged in succesfully
+        400:
+          description: Invalid login/password
     post:
-      description: User login
+      summary: Logs a user in (with a form)
+      tags:
+        - "user"
       requestBody:
+        description: User-filled form
         content:
           'application/x-www-form-urlencoded':
             schema:
@@ -99,116 +336,160 @@ paths:
                   type: string
       responses:
         200:
-          description: User login failed
-          content:
-            'text/html':
-              schema:
-                description: User login form
-                type: string
-        302:
-          description: User logged in successfully
+          description: User logged in succesfully
+        400:
+          description: Invalid user login/password
+  /user/{login}:
     get:
-      description: User login form
+      description: Available only to admins
+      tags:
+        - "user"
+      summary: Gets a user
+      parameters:
+        - name: "login"
+          description: Login of user
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         200:
-          description: User login form
+          description: The user requested for
           content:
-            'text/html':
+            'application/json':
               schema:
-                description: User login form
-                type: string
-  /auth/logout:
-    get:
-      description: Log user out and redirect to a view (lessons by default)
+                $ref: '#/components/schemas/user'
+        400:
+          description: Not permitted
+        404:
+          description: User not found
+    put:
+      description: Update user's details
+      tags:
+        - "user"
+      summary: Avavilable only to admins and the users themselves
       parameters:
-        - name: loggedIn
-          in: cookie
-          description: A cookie signifiying the user is logged in as an admin
-          required: false
+        - name: "login"
+          description: Login of user
+          in: path
+          required: true
           schema:
             type: string
-        - name: location
-          in: query
-          description: View to be displayed after logout
-          required: false
+      requestBody:
+        description: New user data
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/user'
+          'application/xml':
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/user'
+            'application/xml':
+              schema:
+                $ref: '#/components/schemas/user'
+        400:
+          description: Not permitted
+        404:
+          description: User not found
+        405:
+          description: Validation failed
+    delete:
+      description: Available only to admins and the users themselves
+      tags:
+        - "user"
+      summary: Deletes a user
+      parameters:
+        - name: "login"
+          description: Login of user
+          in: path
+          required: true
           schema:
             type: string
       responses:
-        302:
-          description: User logged out successful
+        200:
+          description: User deleted successfully
+        400:
+          description: Not permitted
+        404:
+          description: User not found
+        405:
+          description: Validation failed
 components:
   schemas:
-    ssrElement:
-      description: Server-side rendered view
+    user:
+      description: User object
       type: object
       properties:
-        element:
-          type: string
-          description: the HTML tag that holds the object
         id:
+          type: integer
+          format: int32
+        login:
           type: string
-          description: the id of the rendered HTML element
-        classes:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+          format: password
+        group:
+          type: string
+    lessons:
+      description: Array of lessons
+      type: object
+      properties:
+        lessons:
           type: array
-          description: the classes of renedered HTML element
+          items:
+            $ref: '#/components/schemas/lesson'
+        version:
+          type: integer
+          format: int32
+    homeworkForLesson:
+      description: Array of homework objects
+      type: object
+      properties:
+        homework:
+          type: array
+          items:
+            $ref: '#/components/schemas/homework'
+    lesson:
+      description: The lesson object
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        day:
+          type: array
           items:
             type: string
-        value:
-          type: string
-          description: the innerText of the rendered HTML element
-        attributes:
-          type: array
-          description: HTML attributes of the rendered HTML element
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: the name of the attribute
-              value:
-                type: string
-                description: the value of the attribute
-        content:
+        time:
           type: array
           items:
-            $ref: '#/components/schemas/ssrElement'
-    lessons:
-      description: Server-side rendered lesson view
-      type: object
-      properties:
-        content:
+            type: string
+        homework:
           type: array
           items:
-            $ref: '#/components/schemas/ssrElement'
+            $ref: '#/components/schemas/homework'
     homework:
-      description: Server-side rendered view with homework
+      description: The homework object
       type: object
       properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ssrElement'
-    lessonsAdmin:
-      description: Server-side rendered lesson view for admin
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ssrElement'
-    homeworkAdmin:
-      description: Server-side rendered homework view for admin
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ssrElement'
-    offline:
-      description: Service-worker cached offline view
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ssrElement'
+        id:
+          type: integer
+          format: int32
+        task:
+          type: string
+        due:
+          type: string
+          format: date
