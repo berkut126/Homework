@@ -2,6 +2,7 @@ package ru.randomfqdn.homework.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Time implements Serializable {
 
     @Column(name = "TIME")
     @Temporal(TemporalType.TIME)
-    private Date time;
+    private LocalTime time;
 
     public Time() {
         // Required by the JPA
@@ -49,11 +50,11 @@ public class Time implements Serializable {
         this.day = day;
     }
 
-    public Date getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 }
