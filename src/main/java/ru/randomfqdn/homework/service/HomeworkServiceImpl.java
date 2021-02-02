@@ -44,4 +44,10 @@ public class HomeworkServiceImpl implements HomeworkService {
     public Homework save(Homework homework) {
         return homeworkRepository.save(homework);
     }
+
+    @Override
+    public void delete(Homework homework) {
+        homeworkRepository.delete(homework);
+    }
+
 }

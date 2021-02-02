@@ -11,5 +11,6 @@ public interface HomeworkService {
     List<Homework> findAllByLesson(Lesson lesson);
     Homework findById(Integer id);
     Homework save(Homework homework);
+    void delete(Homework homework);
 
 }

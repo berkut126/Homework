@@ -76,4 +76,15 @@ class HomeworkServiceImplTest {
         assertEquals("Hello", newLesson.getTask());
 
     }
+
+    @Test
+    void delete() {
+
+        var homework = service.findById(1);
+
+        service.delete(homework);
+        assertEquals(3, service.findAll().size());
+
+    }
+
 }
