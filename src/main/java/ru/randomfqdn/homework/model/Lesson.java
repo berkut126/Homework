@@ -5,33 +5,63 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.RepresentationModel;
 
+import javax.annotation.Generated;
+import javax.persistence.*;
 import javax.validation.Valid;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * The lesson object
  */
 @ApiModel(description = "The lesson object")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-public class Lesson extends RepresentationModel<Lesson>   {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
+@Entity
+@Table(name = "LESSON")
+public class Lesson extends RepresentationModel<Lesson> implements Serializable {
 
+  @Id
   @JsonProperty("id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Integer id;
 
   @JsonProperty("name")
+  @Column(name = "NAME")
   private String name;
+
+  @Column(name = "WHEN")
+  @OneToMany(
+          mappedBy = "TIMETABLE"
+  )
+  private List<Time> when = new ArrayList<>();
 
   @JsonProperty("day")
   @Valid
-  private java.util.List<String> day = null;
+  @Transient
+  private List<String> day = when.stream().map(it -> it.getDay()).collect(Collectors.toList());
 
   @JsonProperty("time")
   @Valid
-  private java.util.List<String> time = null;
+  @Transient
+  private List<String> time = when.stream().map(it -> {
+    var formatter = new SimpleDateFormat("hh:MM");
+    return formatter.format(it.getTime());
+  }).collect(Collectors.toList());
 
   @JsonProperty("homework")
   @Valid
-  private java.util.List<Homework> homework = null;
+  @ManyToMany
+  @JoinTable(
+          name = "TASKS",
+          joinColumns = @JoinColumn(name = "SUBJECT"),
+          inverseJoinColumns = @JoinColumn(name = "TASK")
+  )
+  private List<Homework> homework = new ArrayList<>();
 
   public Lesson id(Integer id) {
     this.id = id;
@@ -51,6 +81,10 @@ public class Lesson extends RepresentationModel<Lesson>   {
     this.id = id;
   }
 
+  public Lesson() {
+    // Required by the JPA
+  }
+
   public Lesson name(String name) {
     this.name = name;
     return this;
@@ -61,8 +95,6 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return name
   */
   @ApiModelProperty(value = "")
-
-
   public String getName() {
     return name;
   }
@@ -71,14 +103,14 @@ public class Lesson extends RepresentationModel<Lesson>   {
     this.name = name;
   }
 
-  public Lesson day(java.util.List<String> day) {
+  public Lesson day(List<String> day) {
     this.day = day;
     return this;
   }
 
   public Lesson addDayItem(String dayItem) {
     if (this.day == null) {
-      this.day = new java.util.ArrayList<>();
+      this.day = new ArrayList<>();
     }
     this.day.add(dayItem);
     return this;
@@ -89,22 +121,22 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return day
   */
   @ApiModelProperty(value = "")
-  public java.util.List<String> getDay() {
+  public List<String> getDay() {
     return day;
   }
 
-  public void setDay(java.util.List<String> day) {
+  public void setDay(List<String> day) {
     this.day = day;
   }
 
-  public Lesson time(java.util.List<String> time) {
+  public Lesson time(List<String> time) {
     this.time = time;
     return this;
   }
 
   public Lesson addTimeItem(String timeItem) {
     if (this.time == null) {
-      this.time = new java.util.ArrayList<>();
+      this.time = new ArrayList<>();
     }
     this.time.add(timeItem);
     return this;
@@ -115,22 +147,22 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * @return time
   */
   @ApiModelProperty(value = "")
-  public java.util.List<String> getTime() {
+  public List<String> getTime() {
     return time;
   }
 
-  public void setTime(java.util.List<String> time) {
+  public void setTime(List<String> time) {
     this.time = time;
   }
 
-  public Lesson homework(java.util.List<Homework> homework) {
+  public Lesson homework(List<Homework> homework) {
     this.homework = homework;
     return this;
   }
 
   public Lesson addHomeworkItem(Homework homeworkItem) {
     if (this.homework == null) {
-      this.homework = new java.util.ArrayList<>();
+      this.homework = new ArrayList<>();
     }
     this.homework.add(homeworkItem);
     return this;
@@ -144,17 +176,17 @@ public class Lesson extends RepresentationModel<Lesson>   {
 
   @Valid
 
-  public java.util.List<Homework> getHomework() {
+  public List<Homework> getHomework() {
     return homework;
   }
 
-  public void setHomework(java.util.List<Homework> homework) {
+  public void setHomework(List<Homework> homework) {
     this.homework = homework;
   }
 
 
   @Override
-  public boolean equals(java.lang.Object o) {
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -191,7 +223,7 @@ public class Lesson extends RepresentationModel<Lesson>   {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(java.lang.Object o) {
+  private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
     }
