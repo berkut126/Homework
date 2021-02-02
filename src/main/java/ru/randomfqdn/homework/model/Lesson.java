@@ -35,7 +35,9 @@ public class Lesson extends RepresentationModel<Lesson> implements Serializable 
   private String name;
 
   @OneToMany(
-          mappedBy = "lesson"
+          mappedBy = "lesson",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true
   )
   private List<Time> when = new ArrayList<>();
 
@@ -54,7 +56,11 @@ public class Lesson extends RepresentationModel<Lesson> implements Serializable 
 
   @JsonProperty("homework")
   @Valid
-  @OneToMany(mappedBy = "lesson")
+  @OneToMany(
+          mappedBy = "lesson",
+          cascade = CascadeType.ALL,
+          orphanRemoval = true
+  )
   private List<Homework> homework = new ArrayList<>();
 
   @ManyToOne
@@ -212,7 +218,6 @@ public class Lesson extends RepresentationModel<Lesson> implements Serializable 
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    day: ").append(toIndentedString(day)).append("\n");
     sb.append("    time: ").append(toIndentedString(time)).append("\n");
-    sb.append("    homework: ").append(toIndentedString(homework)).append("\n");
     sb.append("}");
     return sb.toString();
   }
