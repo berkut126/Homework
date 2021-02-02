@@ -10,5 +10,6 @@ public interface HomeworkService {
     List<Homework> findAll();
     List<Homework> findAllByLesson(Lesson lesson);
     Homework findById(Integer id);
+    Homework save(Homework homework);
 
 }

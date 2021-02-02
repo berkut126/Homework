@@ -36,4 +36,8 @@ public class HomeworkServiceImpl implements HomeworkService {
         return homeworkRepository.findById(id).get();
     }
 
+    @Override
+    public Homework save(Homework homework) {
+        return homeworkRepository.save(homework);
+    }
 }

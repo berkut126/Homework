@@ -65,4 +65,15 @@ class HomeworkServiceImplTest {
         System.out.println(homework);
 
     }
+
+    @Test
+    void save() {
+
+        var lesson = service.findById(1);
+        lesson.setTask("Hello");
+
+        var newLesson = service.save(lesson);
+        assertEquals("Hello", newLesson.getTask());
+
+    }
 }
