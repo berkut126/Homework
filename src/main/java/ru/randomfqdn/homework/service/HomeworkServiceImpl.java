@@ -21,22 +21,26 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Homework> findAll() {
         return homeworkRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Homework> findAllByLesson(Lesson lesson) {
         return homeworkRepository.findAllByLesson(lesson);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Homework findById(Integer id) {
         //noinspection OptionalGetWithoutIsPresent
         return homeworkRepository.findById(id).get();
     }
 
     @Override
+    @Transactional
     public Homework save(Homework homework) {
         return homeworkRepository.save(homework);
     }
