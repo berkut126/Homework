@@ -8,6 +8,8 @@ import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,6 +48,14 @@ public class User extends RepresentationModel<User> implements Serializable {
   @JsonProperty("group")
   @Column(name = "USER_GROUP")
   private String group;
+
+  @OneToMany(
+          mappedBy = "user",
+          orphanRemoval = true,
+          cascade = CascadeType.ALL
+  )
+  private List<Lesson> lessons = new ArrayList<>();
+
 
   public User() {
     // Required by JPA

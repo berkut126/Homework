@@ -68,4 +68,15 @@ class UserServiceImplTest {
         assertEquals(3, savedUser.getId());
 
     }
+
+    @Test
+    void delete() {
+
+        var user = service.findUserByLogin("nnn");
+
+        service.delete(user);
+        assertEquals(1, service.findAll().size());
+
+    }
+
 }

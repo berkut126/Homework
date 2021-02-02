@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
 }
