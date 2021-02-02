@@ -1,10 +1,12 @@
 package ru.randomfqdn.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.RepresentationModel;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -12,25 +14,41 @@ import java.util.Objects;
  */
 @ApiModel(description = "User object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
+@Entity
+@Table(name = "users")
 public class User extends RepresentationModel<User>   {
 
+  @Id
   @JsonProperty("id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Integer id;
 
   @JsonProperty("login")
+  @Column(name = "LOGIN")
   private String login;
 
   @JsonProperty("firstName")
+  @Column(name = "FIRST_NAME")
   private String firstName;
 
   @JsonProperty("lastName")
+  @Column(name = "LAST_NAME")
   private String lastName;
 
+  // TODO: switch to hash after passing test with plain-text passwords. WARNING: NEVER STORE PASSWORDS AS PLAINTEXT IN PRODUCTION!
   @JsonProperty("password")
+  @JsonIgnore
+  @Column(name = "PASSWORD")
   private String password;
 
   @JsonProperty("group")
+  @Column(name = "USER_GROUP")
   private String group;
+
+  public User() {
+    // Required by JPA
+  }
 
   public User id(Integer id) {
     this.id = id;
