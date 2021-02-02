@@ -16,7 +16,7 @@ import java.util.Objects;
 @ApiModel(description = "User object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User extends RepresentationModel<User> implements Serializable {
 
   @Id

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @ApiModel(description = "The lesson object")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
 @Entity
-@Table(name = "LESSON")
+@Table(name = "LESSONS")
 public class Lesson extends RepresentationModel<Lesson> implements Serializable {
 
   @Id
@@ -34,9 +34,8 @@ public class Lesson extends RepresentationModel<Lesson> implements Serializable 
   @Column(name = "NAME")
   private String name;
 
-  @Column(name = "WHEN")
   @OneToMany(
-          mappedBy = "TIMETABLE"
+          mappedBy = "lesson"
   )
   private List<Time> when = new ArrayList<>();
 
@@ -55,13 +54,12 @@ public class Lesson extends RepresentationModel<Lesson> implements Serializable 
 
   @JsonProperty("homework")
   @Valid
-  @ManyToMany
-  @JoinTable(
-          name = "TASKS",
-          joinColumns = @JoinColumn(name = "SUBJECT"),
-          inverseJoinColumns = @JoinColumn(name = "TASK")
-  )
+  @OneToMany(mappedBy = "lesson")
   private List<Homework> homework = new ArrayList<>();
+
+  @ManyToOne
+  @JoinColumn(name = "WHOSE")
+  private User user;
 
   public Lesson id(Integer id) {
     this.id = id;

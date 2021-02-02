@@ -1,5 +1,6 @@
 package ru.randomfqdn.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,6 +36,11 @@ public class Homework extends RepresentationModel<Homework> implements Serializa
   @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
   @Column(name = "DUE")
   private LocalDate due;
+
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "SUBJECT")
+  private Lesson lesson;
 
   public Homework id(Integer id) {
     this.id = id;

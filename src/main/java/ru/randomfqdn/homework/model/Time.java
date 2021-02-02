@@ -3,7 +3,6 @@ package ru.randomfqdn.homework.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "TIMETABLE")
@@ -17,9 +16,12 @@ public class Time implements Serializable {
     @Column(name = "DAY")
     private String day;
 
-    @Column(name = "TIME")
-    @Temporal(TemporalType.TIME)
+    @Column(name = "TIME", columnDefinition = "TIME")
     private LocalTime time;
+
+    @ManyToOne
+    @JoinColumn(name = "LESSON")
+    private Lesson lesson;
 
     public Time() {
         // Required by the JPA
