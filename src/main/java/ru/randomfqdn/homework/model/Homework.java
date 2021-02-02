@@ -3,9 +3,12 @@ package ru.randomfqdn.homework.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
 
+import javax.persistence.*;
 import javax.validation.Valid;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -14,16 +17,23 @@ import java.util.Objects;
  */
 @ApiModel(description = "The homework object")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2021-02-02T15:48:14.721923900+03:00[Europe/Moscow]")
-public class Homework extends RepresentationModel<Homework>   {
+@Entity
+@Table(name = "HOMEWORK")
+public class Homework extends RepresentationModel<Homework> implements Serializable {
 
+  @Id
   @JsonProperty("id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ID")
   private Integer id;
 
+  @Column(name = "TASK")
   @JsonProperty("task")
   private String task;
 
   @JsonProperty("due")
-  @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+  @DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE)
+  @Column(name = "DUE")
   private LocalDate due;
 
   public Homework id(Integer id) {
